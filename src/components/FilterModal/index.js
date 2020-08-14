@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import {View} from 'react-native';
+import {View, CheckBox} from 'react-native';
 
 import TextInput from '../TextInput';
 
@@ -13,7 +13,6 @@ import {
   Button,
   ButtonText,
   Icon,
-  CheckBox,
   IconButtonClose,
   CheckBoxButton,
   CheckBoxText,
@@ -65,7 +64,11 @@ const FilterModal = ({
             </View>
 
             <CheckBoxButton onPress={() => setCheckBox((state) => !state)}>
-              <CheckBox value={checkBox} onValueChange={setCheckBox} />
+              <CheckBox
+                value={checkBox}
+                onValueChange={setCheckBox}
+                tintColors={{true: '#2b7fc3', false: 'black'}}
+              />
 
               <CheckBoxText>Full Time Only</CheckBoxText>
             </CheckBoxButton>

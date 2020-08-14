@@ -1,3 +1,7 @@
 import styled from 'styled-components/native';
 
-export const Container = styled.View``;
+export const JobsList = styled.FlatList.attrs({
+  showVerticalScrollIndicator: false,
+})`
+  padding: 10px;
+`;

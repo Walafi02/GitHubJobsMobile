@@ -1,21 +1,35 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import {View, Text} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import {FilterModal} from '~/components';
+import api from '~/services/api';
+import {FilterModal, Loading} from '~/components';
 
-// import {
-//   // TextHotSearche,
-//   // HotSearches,
-//   // HotSearchesButton,
-//   // HotSearchesButtonText,
-//   // CheckBoxText,
-//   // CheckBoxButton,
-// } from './styles';
+import Job from './Job';
+
+import {JobsList} from './styles';
 
 const Dashboard = ({navigation}) => {
   const [hasFilter, setHasFilter] = useState(false);
-  const [openModal, setOpenModal] = useState(true);
+  const [openModal, setOpenModal] = useState(false);
+  const [jobs, setJobs] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const load = useCallback(async () => {
+    setLoading(true);
+    try {
+      const {data} = await api.get('positions.json');
+      setJobs(data);
+    } catch (error) {
+      setJobs([]);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  const refreshList = useCallback(() => {
+    load();
+  }, []);
 
   useEffect(() => {
     navigation.setOptions({
@@ -31,17 +45,26 @@ const Dashboard = ({navigation}) => {
     });
   }, [navigation, hasFilter]);
 
+  useEffect(() => {
+    load();
+  }, [load]);
+
   return (
     <>
-      <View>
-        <Text>Dashboard</Text>
-      </View>
+      <JobsList
+        data={jobs}
+        keyExtractor={({id}) => String(id)}
+        onRefresh={refreshList}
+        refreshing={false}
+        renderItem={({item}) => <Job {...item} />}
+      />
 
       <FilterModal
         visible={openModal}
         onClose={() => setOpenModal(false)}
         onConfirm={() => {}}
       />
+      <Loading isVisible={loading} />
     </>
   );
 };
