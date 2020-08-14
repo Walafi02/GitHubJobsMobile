@@ -1,86 +1,34 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import {Image} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import {DrawerContent} from '~/components';
 import {Jobs, JobDetails, JobsWorks, JobsApi} from '~/pages';
-import logo from '~/assets/logo.png';
+
+import Screens from './Screens';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
-const JobsStack = ({navigation}) => (
-  <Stack.Navigator
-    screenOptions={{
-      headerBackTitleVisible: false,
-      headerTitleAlign: 'center',
-      headerStyle: {
-        backgroundColor: '#2B7FC3',
-      },
-      headerTitle: () => <Image source={logo} />,
-      headerLeft: () => (
-        <Icon.Button
-          size={25}
-          name="menu"
-          onPress={() => navigation.openDrawer()}
-          backgroundColor="transparent"
-          iconStyle={{marginRight: 0}}
-        />
-      ),
-    }}>
+const JobsStack = ({...props}) => (
+  <Screens {...props}>
     <Stack.Screen name="Jobs" component={Jobs} />
     <Stack.Screen name="JobDetails" component={JobDetails} />
-  </Stack.Navigator>
+  </Screens>
 );
 
-const JobsWorksStack = ({navigation}) => (
-  <Stack.Navigator
-    screenOptions={{
-      headerBackTitleVisible: false,
-      headerTitleAlign: 'center',
-      headerStyle: {
-        backgroundColor: '#2B7FC3',
-      },
-      headerTitle: () => <Image source={logo} />,
-      headerLeft: () => (
-        <Icon.Button
-          size={25}
-          name="menu"
-          onPress={() => navigation.openDrawer()}
-          backgroundColor="transparent"
-          iconStyle={{marginRight: 0}}
-        />
-      ),
-    }}>
+const JobsWorksStack = ({...props}) => (
+  <Screens {...props}>
     <Stack.Screen name="JobsWorks" component={JobsWorks} />
-  </Stack.Navigator>
+  </Screens>
 );
 
-const JobsApiStack = ({navigation}) => (
-  <Stack.Navigator
-    screenOptions={{
-      headerBackTitleVisible: false,
-      headerTitleAlign: 'center',
-      headerStyle: {
-        backgroundColor: '#2B7FC3',
-      },
-      headerTitle: () => <Image source={logo} />,
-      headerLeft: () => (
-        <Icon.Button
-          size={25}
-          name="menu"
-          onPress={() => navigation.openDrawer()}
-          backgroundColor="transparent"
-          iconStyle={{marginRight: 0}}
-        />
-      ),
-    }}>
+const JobsApiStack = ({...props}) => (
+  <Screens {...props}>
     <Stack.Screen name="JobsApi" component={JobsApi} />
-  </Stack.Navigator>
+  </Screens>
 );
 
 const Routes = () => {

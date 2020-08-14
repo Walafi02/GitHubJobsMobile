@@ -1,14 +1,98 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Linking} from 'react-native';
 
-// import { Container } from './styles';
+import {screenshotEditor, screenshotListing, cards} from '~/assets';
+
+import {
+  Container,
+  TextBignote,
+  Card,
+  Image,
+  Title,
+  Description,
+  Price,
+  Cards,
+  CardImage,
+  ViewBottom,
+  ArrowIcon,
+} from './styles';
 
 const JobsWorks = () => {
   return (
-    <View>
-      <Text>JobsWorks</Text>
-    </View>
+    <Container>
+      <TextBignote>How GitHub Jobs Works</TextBignote>
+      <TextBignote>
+        GitHub Jobs is a great place attract the best technical talent for your
+        company&apos;s open software development positions. Here&apos;s how:
+      </TextBignote>
+
+      <Card>
+        <Image source={screenshotEditor} />
+
+        <Title>Create & preview your listing</Title>
+        <Description>
+          See exactly how your listing will look before you publish live. Before
+          creating a listing, you must login with your GitHub account and verify
+          your email address.
+        </Description>
+      </Card>
+
+      <ArrowIcon />
+
+      <Card>
+        <View>
+          <Price>$450.00</Price>
+          <Description>per listing</Description>
+
+          <Cards>
+            {cards.map((card, index) => (
+              <CardImage key={String(index)} source={card} />
+            ))}
+          </Cards>
+        </View>
+
+        <Title>Pay with a major credit card</Title>
+        <Description>
+          Invoicing available on request for bulk orders. Email{' '}
+          <Description
+            hasLink
+            onPress={() => Linking.openURL('mailto:support@example.com')}>
+            jobs@github.com
+          </Description>{' '}
+          for more info. Sorry, no recruitment agencies.
+        </Description>
+      </Card>
+
+      <ArrowIcon />
+
+      <Card>
+        <Image source={screenshotListing} />
+
+        <Title>Your listing goes live immediately</Title>
+        <Description>
+          Listings are live for 30 days. We’ll send you a receipt and a link to
+          change the listing.
+        </Description>
+      </Card>
+
+      <ViewBottom>
+        <TextBignote>
+          Questions? Submit a request via our{' '}
+          <TextBignote
+            hasLink
+            onPress={() =>
+              Linking.openURL(
+                'https://support.github.com/contact?tags=jobs-support'
+              )
+            }>
+            contact form
+          </TextBignote>{' '}
+          and let&apos;s talk.
+        </TextBignote>
+      </ViewBottom>
+    </Container>
   );
 };
 
+//
 export default JobsWorks;
