@@ -1,5 +1,6 @@
-import Dashboard from './Dashboard';
+import Jobs from './Jobs';
 import JobsWorks from './JobsWorks';
-import Api from './Api';
+import JobsApi from './JobsApi';
+import JobDetails from './JobDetails';
 
-export {Dashboard, JobsWorks, Api};
+export {Jobs, JobsWorks, JobsApi, JobDetails};

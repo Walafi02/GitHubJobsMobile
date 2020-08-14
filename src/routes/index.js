@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {Image} from 'react-native';
@@ -6,13 +7,13 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import {DrawerContent} from '~/components';
-import {Dashboard, JobsWorks} from '~/pages';
+import {Jobs, JobDetails, JobsWorks, JobsApi} from '~/pages';
 import logo from '~/assets/logo.png';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
-const DashboardStack = ({navigation}) => (
+const JobsStack = ({navigation}) => (
   <Stack.Navigator
     screenOptions={{
       headerBackTitleVisible: false,
@@ -31,19 +32,54 @@ const DashboardStack = ({navigation}) => (
         />
       ),
     }}>
-    <Stack.Screen name="Dashboard" component={Dashboard} />
+    <Stack.Screen name="Jobs" component={Jobs} />
+    <Stack.Screen name="JobDetails" component={JobDetails} />
   </Stack.Navigator>
 );
 
-const JobsWorksStack = () => (
-  <Stack.Navigator>
-    <Stack.Screen
-      name="JobsWorks"
-      options={{
-        title: 'JobsWorks',
-      }}
-      component={JobsWorks}
-    />
+const JobsWorksStack = ({navigation}) => (
+  <Stack.Navigator
+    screenOptions={{
+      headerBackTitleVisible: false,
+      headerTitleAlign: 'center',
+      headerStyle: {
+        backgroundColor: '#2B7FC3',
+      },
+      headerTitle: () => <Image source={logo} />,
+      headerLeft: () => (
+        <Icon.Button
+          size={25}
+          name="menu"
+          onPress={() => navigation.openDrawer()}
+          backgroundColor="transparent"
+          iconStyle={{marginRight: 0}}
+        />
+      ),
+    }}>
+    <Stack.Screen name="JobsWorks" component={JobsWorks} />
+  </Stack.Navigator>
+);
+
+const JobsApiStack = ({navigation}) => (
+  <Stack.Navigator
+    screenOptions={{
+      headerBackTitleVisible: false,
+      headerTitleAlign: 'center',
+      headerStyle: {
+        backgroundColor: '#2B7FC3',
+      },
+      headerTitle: () => <Image source={logo} />,
+      headerLeft: () => (
+        <Icon.Button
+          size={25}
+          name="menu"
+          onPress={() => navigation.openDrawer()}
+          backgroundColor="transparent"
+          iconStyle={{marginRight: 0}}
+        />
+      ),
+    }}>
+    <Stack.Screen name="JobsApi" component={JobsApi} />
   </Stack.Navigator>
 );
 
@@ -56,27 +92,34 @@ const Routes = () => {
         drawerContentOptions={{
           activeTintColor: '#2B7FC3',
           activeBackgroundColor: '#eee',
-          // labelStyle: {marginLeft: -20},
         }}
         drawerStyle={{
           backgroundColor: '#eee',
           width: 250,
         }}>
         <Drawer.Screen
-          name="DashboardDrawer"
+          name="JobsDrawer"
           options={{
-            title: 'Dashboard',
+            title: 'Jobs',
             unmountOnBlur: true,
           }}
-          component={DashboardStack}
+          component={JobsStack}
         />
         <Drawer.Screen
           name="JobsWorksDrawer"
           options={{
-            title: 'JobsWorks',
+            title: 'How It GitHub',
             unmountOnBlur: true,
           }}
           component={JobsWorksStack}
+        />
+        <Drawer.Screen
+          name="JobsApiStackDrawer"
+          options={{
+            title: 'GitHub Jobs API',
+            unmountOnBlur: true,
+          }}
+          component={JobsApiStack}
         />
       </Drawer.Navigator>
     </NavigationContainer>

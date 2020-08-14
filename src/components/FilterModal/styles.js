@@ -1,9 +1,5 @@
-import styled, {css} from 'styled-components/native';
-import {
-  Modal as ModalRN,
-  TouchableOpacity,
-  CheckBox as CheckBoxInput,
-} from 'react-native';
+import styled from 'styled-components/native';
+import {Modal as ModalRN, TouchableOpacity} from 'react-native';
 import Icons from 'react-native-vector-icons/MaterialIcons';
 
 export const Container = styled(ModalRN).attrs({
@@ -92,8 +88,6 @@ export const CheckBoxButton = styled.TouchableOpacity`
   align-items: center;
 `;
 
-export const CheckBoxText = styled.Text``;
-
-export const CheckBox = styled(CheckBoxInput).attrs({
-  tintColors: {true: '#2b7fc3', false: 'black'},
-})``;
+export const CheckBoxText = styled.Text`
+  margin-left: 6px;
+`;

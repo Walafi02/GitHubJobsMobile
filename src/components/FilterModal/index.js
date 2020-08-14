@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
-import {View, CheckBox} from 'react-native';
-
+import {View} from 'react-native';
+import Icons from 'react-native-vector-icons/MaterialIcons';
 import TextInput from '../TextInput';
 
 import {
@@ -23,33 +23,69 @@ import {
 } from './styles';
 
 const hotSearches = [
-  {title: 'Node', key: 'node'},
-  {title: 'React', key: 'react'},
-  {title: 'Java', key: 'java'},
-  {title: 'PHP', key: 'php'},
-  {title: 'Node', key: 'node'},
-  {title: 'React', key: 'react'},
-  {title: 'Java', key: 'java'},
-  {title: 'PHP', key: 'php'},
+  'PHP',
+  'Rails',
+  'Python',
+  'JavaScript',
+  'Scala',
+  'Android',
+  'iOS',
+  'Linux',
+  'Erlang',
+  'San Francisco',
+  'New York City',
+  'Austin, TX',
+  'London',
+  'Europe',
 ];
 
-const FilterModal = ({
-  title,
-  visible,
-  onClose,
-  onConfirm,
-  closeLabel,
-  confirmLabel,
-  children,
-  disabledConfirm = false,
-  disabledClose = false,
-}) => {
-  const [checkBox, setCheckBox] = useState(true);
+const FilterModal = ({modal, filter}) => {
+  const {currentFilter = {}, setCurrentFilter} = filter;
+  const {openModal = false, setOpenModal} = modal;
+
+  const [checkBox, setCheckBox] = useState(false);
+  const [description, setDescription] = useState('');
+  const [location, setLocation] = useState('');
+
+  const hendleClear = () => {
+    setCurrentFilter({
+      description: '',
+      location: '',
+      full_time: false,
+    });
+    setOpenModal(false);
+  };
+
+  const handleHotSearches = (searche) => {
+    setCurrentFilter({
+      description: searche,
+      location,
+      full_time: checkBox,
+    });
+    setOpenModal(false);
+  };
+
+  const handleApply = () => {
+    setCurrentFilter({
+      description,
+      location,
+      full_time: checkBox,
+    });
+    setOpenModal(false);
+  };
+
+  useEffect(() => {
+    if (openModal) {
+      setCheckBox(currentFilter.full_time || false);
+      setDescription(currentFilter.description || '');
+      setLocation(currentFilter.location || '');
+    }
+  }, [currentFilter, openModal]);
 
   return (
-    <Container visible={visible} onRequestClose={onClose}>
+    <Container visible={openModal} onRequestClose={() => setOpenModal(false)}>
       <ModalBackground>
-        <IconButtonClose onPress={onClose}>
+        <IconButtonClose onPress={() => setOpenModal(false)}>
           <Icon name="close" />
         </IconButtonClose>
         <View>
@@ -58,16 +94,23 @@ const FilterModal = ({
             <View>
               <TextInput
                 label="Job Description"
-                placeholder="Filter by Title..."
+                placeholder="Filter by title, benefits or companies"
+                value={description}
+                onChange={setDescription}
               />
-              <TextInput label="Location" />
+              <TextInput
+                label="Location"
+                placeholder="Filter by city, state, zip code or country"
+                value={location}
+                onChange={setLocation}
+              />
             </View>
 
             <CheckBoxButton onPress={() => setCheckBox((state) => !state)}>
-              <CheckBox
-                value={checkBox}
-                onValueChange={setCheckBox}
-                tintColors={{true: '#2b7fc3', false: 'black'}}
+              <Icons
+                name={checkBox ? 'check-box' : 'check-box-outline-blank'}
+                color={checkBox ? '#2b7fc3' : '#000'}
+                size={25}
               />
 
               <CheckBoxText>Full Time Only</CheckBoxText>
@@ -80,40 +123,22 @@ const FilterModal = ({
                 {hotSearches.map((item, index) => (
                   <HotSearchesButton
                     key={String(index)}
-                    onPress={() => console.log(item.key)}>
-                    <HotSearchesButtonText>{item.title}</HotSearchesButtonText>
+                    onPress={() => handleHotSearches(item)}>
+                    <HotSearchesButtonText>{item}</HotSearchesButtonText>
                   </HotSearchesButton>
                 ))}
               </HotSearches>
             </View>
 
             <Footer>
-              <Button onPress={onClose}>
+              <Button onPress={hendleClear}>
                 <ButtonText>Clear</ButtonText>
               </Button>
 
-              <Button onPress={onClose}>
+              <Button onPress={handleApply}>
                 <ButtonText>Search</ButtonText>
               </Button>
             </Footer>
-
-            {/* {title && <Title>{title}</Title>}
-            <Footer>
-              {onClose && (
-                <Button onPress={onClose} disabled={disabledClose}>
-                  <ButtonText disabled={disabledClose}>
-                    {closeLabel || 'Cancelar'}
-                  </ButtonText>
-                </Button>
-              )}
-              {onConfirm && (
-                <Button onPress={onConfirm} disabled={disabledConfirm}>
-                  <ButtonText disabled={disabledConfirm}>
-                    {confirmLabel || 'Confirmar'}
-                  </ButtonText>
-                </Button>
-              )}
-            </Footer> */}
           </Modal>
         </View>
       </ModalBackground>
@@ -122,25 +147,18 @@ const FilterModal = ({
 };
 
 FilterModal.propTypes = {
-  title: PropTypes.string,
-  visible: PropTypes.bool.isRequired,
-  onClose: PropTypes.func,
-  onConfirm: PropTypes.func,
-  children: PropTypes.element.isRequired,
-  disabledConfirm: PropTypes.bool,
-  disabledClose: PropTypes.bool,
-  closeLabel: PropTypes.string,
-  confirmLabel: PropTypes.string,
-};
-
-FilterModal.defaultProps = {
-  title: null,
-  onClose: null,
-  onConfirm: null,
-  disabledConfirm: false,
-  disabledClose: false,
-  closeLabel: null,
-  confirmLabel: null,
+  modal: PropTypes.shape({
+    openModal: PropTypes.bool,
+    setOpenModal: PropTypes.func,
+  }).isRequired,
+  filter: PropTypes.shape({
+    currentFilter: PropTypes.shape({
+      description: PropTypes.string,
+      location: PropTypes.string,
+      full_time: PropTypes.bool,
+    }).isRequired,
+    setCurrentFilter: PropTypes.func,
+  }).isRequired,
 };
 
 export default FilterModal;

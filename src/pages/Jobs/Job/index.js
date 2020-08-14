@@ -4,11 +4,19 @@ import moment from 'moment';
 
 import {Container, Title, Type, Company, Location, Date, Card} from './styles';
 
-const Job = ({title, type, company, location, created_at: date}) => {
+const Job = ({
+  id,
+  title,
+  type,
+  company,
+  location,
+  created_at: date,
+  onShowDescription,
+}) => {
   const dateFormated = useMemo(() => moment(date).fromNow(), [date]);
 
   return (
-    <Container onPress={() => {}}>
+    <Container onPress={() => onShowDescription(id)}>
       <Card>
         <Title>{title}</Title>
       </Card>

@@ -3,12 +3,12 @@ import {View, Text} from 'react-native';
 
 // import { Container } from './styles';
 
-const Api = () => {
+const JobsApi = () => {
   return (
     <View>
-      <Text>API</Text>
+      <Text>JobsApi</Text>
     </View>
   );
 };
 
-export default Api;
+export default JobsApi;
