@@ -29,8 +29,12 @@ export const Card = styled.View`
   padding: 6px 4px;
 `;
 
-export const Image = styled.Image`
-  width: 100%;
+export const Image = styled.Image.attrs({
+  resizeMode: 'stretch',
+})`
+  width: 120px;
+  height: 200px;
+  margin: 0 auto;
 `;
 
 export const Title = styled.Text`

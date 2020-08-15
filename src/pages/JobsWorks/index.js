@@ -1,8 +1,8 @@
 import React from 'react';
 import {View, Linking} from 'react-native';
 
-import screenshotEditor from '~/assets/screenshot-editor.jpg';
-import screenshotListing from '~/assets/screenshot-listing.jpg';
+import screenshotEditor from '~/assets/screenshot-editor.png';
+import screenshotListing from '~/assets/screenshot-listing.png';
 import {cards} from '~/utils/constants';
 
 import {
@@ -29,7 +29,7 @@ const JobsWorks = () => {
       </TextBignote>
 
       <Card>
-        <Image source={screenshotEditor} />
+        <Image source={screenshotListing} />
 
         <Title>Create & preview your listing</Title>
         <Description>
@@ -68,7 +68,7 @@ const JobsWorks = () => {
       <ArrowIcon />
 
       <Card>
-        <Image source={screenshotListing} />
+        <Image source={screenshotEditor} />
 
         <Title>Your listing goes live immediately</Title>
         <Description>
@@ -96,5 +96,4 @@ const JobsWorks = () => {
   );
 };
 
-//
 export default JobsWorks;
