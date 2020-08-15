@@ -22,22 +22,7 @@ import {
   HotSearchesButtonText,
 } from './styles';
 
-const hotSearches = [
-  'PHP',
-  'Rails',
-  'Python',
-  'JavaScript',
-  'Scala',
-  'Android',
-  'iOS',
-  'Linux',
-  'Erlang',
-  'San Francisco',
-  'New York City',
-  'Austin, TX',
-  'London',
-  'Europe',
-];
+import {hotSearches} from '~/utils/constants';
 
 const FilterModal = ({modal, filter}) => {
   const {currentFilter = {}, setCurrentFilter} = filter;

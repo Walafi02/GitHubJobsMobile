@@ -29,8 +29,8 @@ const Jobs = ({navigation}) => {
     [currentFilter]
   );
 
-  const handleShowDescription = (id) => {
-    navigation.navigate('JobDetails', {id});
+  const handleShowDescription = (job) => {
+    navigation.navigate('JobDetails', {job});
   };
 
   const loadJobs = async (oldJobs = [], currentPage = 0) => {
@@ -94,7 +94,10 @@ const Jobs = ({navigation}) => {
         onEndReachedThreshold={0.2}
         onEndReached={handleLoadMore}
         renderItem={({item}) => (
-          <Job onShowDescription={handleShowDescription} {...item} />
+          <Job
+            onShowDescription={() => handleShowDescription(item)}
+            {...item}
+          />
         )}
       />
 

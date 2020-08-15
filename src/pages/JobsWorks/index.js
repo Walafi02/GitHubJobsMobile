@@ -1,7 +1,9 @@
 import React from 'react';
 import {View, Linking} from 'react-native';
 
-import {screenshotEditor, screenshotListing, cards} from '~/assets';
+import screenshotEditor from '~/assets/screenshot-editor.jpg';
+import screenshotListing from '~/assets/screenshot-listing.jpg';
+import {cards} from '~/utils/constants';
 
 import {
   Container,

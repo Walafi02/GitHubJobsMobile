@@ -22,7 +22,7 @@ export const TextBignote = styled.Text`
 export const Card = styled.View`
   background: #fff;
   border-width: 2px;
-  border-radius: 10;
+  border-radius: 10px;
   border-color: #ccc;
   margin-top: 10px;
   margin-bottom: 10px;

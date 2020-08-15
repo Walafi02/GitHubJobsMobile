@@ -1,72 +1,85 @@
-import React, {useState, useEffect, useCallback} from 'react';
-import {View, Text, ScrollView, StyleSheet} from 'react-native';
+import React, {useEffect} from 'react';
+import {View, TouchableOpacity, Linking} from 'react-native';
 import PropTypes from 'prop-types';
 import HTMLView from 'react-native-htmlview';
-import api from '~/services/api';
-import {Loading} from '~/components';
 
-// import { Container } from './styles';
-// const htmlContent = `
-//     <h1>This HTML snippet is now rendered with native components !</h1>
-//     <h2>Enjoy a webview-free and blazing fast application</h2>
-//     <img src="https://i.imgur.com/dHLmxfO.jpg?2" />
-//     <em style="textAlign: center;">Look at how happy this native cat is</em>
-// `;
+import {Container, Title, P, Strong, Line, ImageLogo, H2} from './styles';
 
-const JobDetails = ({route}) => {
-  const {id = null} = route.params;
-  const [loading, setLoading] = useState(false);
+const JobDetails = ({navigation, route}) => {
+  const {job = {}} = route.params;
 
-  const [job, setJob] = useState({});
+  // eslint-disable-next-line consistent-return
+  const renderNode = (node, index, siblings, parent, defaultRenderer) => {
+    switch (node.name) {
+      case 'p':
+        return (
+          <P key={index} style={{}}>
+            {defaultRenderer(node.children, parent)}
+          </P>
+        );
 
-  const loadJob = useCallback(async () => {
-    setLoading(true);
-    try {
-      const {data} = await api.get(`/positions/${id}.json`);
-      setJob(data);
-    } catch (error) {
-      //
-    } finally {
-      setLoading(false);
+      case 'strong':
+        return (
+          <Strong key={index}>{defaultRenderer(node.children, parent)}</Strong>
+        );
+
+      case 'h2':
+        return <H2 key={index}>{defaultRenderer(node.children, parent)}</H2>;
+
+      default:
+        <>{defaultRenderer(node.children, parent)}</>;
     }
-  }, []);
-
-  const htmlContent = `<p><a href="http://jsdf.co">&hearts; nice job!</a></p>`;
+  };
 
   useEffect(() => {
-    if (id) loadJob();
-  }, [id, loadJob]);
+    if (!job.id) navigation.goBack();
+  }, [job]);
 
   return (
-    <>
+    <Container>
       <View>
-        <Text>{job.title}</Text>
-        <ScrollView>
-          <HTMLView value={job.how_to_apply} stylesheet={styles} />
-        </ScrollView>
+        <Title>{job.title}</Title>
+        <Title hasSubTitle>{`${job.type} / ${job.location}`}</Title>
       </View>
-      <Loading isVisible={loading} />
-    </>
+
+      <Line />
+
+      <HTMLView
+        value={job.description
+          .replace(/\r?\n|\r/g, '')
+          .replace('Interessiert', `${Math.random() * 10}`)}
+        renderNode={renderNode}
+      />
+
+      <Line />
+
+      <TouchableOpacity onPress={() => Linking.openURL(job.company_url)}>
+        <View>
+          <Title>{job.company}</Title>
+        </View>
+
+        {job.company_logo && <ImageLogo source={{uri: job.company_logo}} />}
+      </TouchableOpacity>
+
+      <Line />
+
+      <Title>How To Apply</Title>
+
+      <HTMLView value={job.how_to_apply} renderNode={renderNode} />
+    </Container>
   );
 };
 
-const styles = StyleSheet.create({
-  a: {
-    fontWeight: '300',
-    color: '#FF3366', // make links coloured pink
-  },
-  p: {
-    fontSize: 16,
-
-    // lineHeight: '1.5',
-    color: '#444',
-  },
-});
-
 JobDetails.propTypes = {
+  navigation: PropTypes.shape({
+    goBack: PropTypes.func,
+  }).isRequired,
   route: PropTypes.shape({
     params: PropTypes.shape({
-      id: PropTypes.string,
+      job: PropTypes.shape({
+        id: PropTypes.string,
+        description: PropTypes.string,
+      }).isRequired,
     }),
   }).isRequired,
 };

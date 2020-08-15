@@ -5,7 +5,6 @@ import moment from 'moment';
 import {Container, Title, Type, Company, Location, Date, Card} from './styles';
 
 const Job = ({
-  id,
   title,
   type,
   company,
@@ -16,7 +15,7 @@ const Job = ({
   const dateFormated = useMemo(() => moment(date).fromNow(), [date]);
 
   return (
-    <Container onPress={() => onShowDescription(id)}>
+    <Container onPress={() => onShowDescription()}>
       <Card>
         <Title>{title}</Title>
       </Card>
@@ -40,6 +39,7 @@ Job.propTypes = {
   company: PropTypes.string.isRequired,
   location: PropTypes.string.isRequired,
   created_at: PropTypes.string.isRequired,
+  onShowDescription: PropTypes.func.isRequired,
 };
 
 export default memo(Job);
