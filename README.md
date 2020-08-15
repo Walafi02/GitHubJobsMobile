@@ -1,4 +1,4 @@
-<h1 align="center" style="color: green">
+<h1 align="center" style="backgroundColor: '#2B7FC3'">
   <img alt="GitHubJob" title="GitHubJob" src=".github/logo.png" width="200px" />
 </h1>
 
