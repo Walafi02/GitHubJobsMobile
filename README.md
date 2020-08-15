@@ -6,8 +6,6 @@
   Mobile
 </h3>
 
-<blockquote align="center">“Não sabendo que era impossível, foi lá e fez”</blockquote>
-
 <p align="center">
   <a href="#-technologies">Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-project">Project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
@@ -15,7 +13,7 @@
 </p>
 
 <p align="center">
-  <img alt="GitHubJob" src=".github/fastfeet.png" width="100%">
+  <img alt="GitHubJob" src=".github/githubjobs.gif">
 </p>
 
 ## 🚀 Technologies
