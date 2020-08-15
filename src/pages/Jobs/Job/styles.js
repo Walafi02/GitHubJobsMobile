@@ -15,23 +15,28 @@ export const Title = styled.Text`
 `;
 
 export const Type = styled.Text`
+  text-align: right;
+  flex: 3;
   color: #1d9a00;
   font-size: 14px;
 `;
 
 export const Company = styled.Text`
+  flex: 7;
   color: #999;
 `;
 
 export const Location = styled.Text`
+  flex: 7;
   color: #666;
 `;
 
 export const Date = styled.Text`
+  text-align: right;
+  flex: 3;
   color: #999;
 `;
 
 export const Card = styled.View`
   flex-direction: row;
-  justify-content: space-between;
 `;

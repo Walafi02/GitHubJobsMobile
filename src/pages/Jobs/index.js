@@ -12,7 +12,7 @@ const Jobs = ({navigation}) => {
   const [openModal, setOpenModal] = useState(false);
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [hasNextPage, setHasNextPage] = useState(true);
   const [currentFilter, setCurrentFilter] = useState({
     description: '',
@@ -32,8 +32,9 @@ const Jobs = ({navigation}) => {
     navigation.navigate('JobDetails', {job});
   };
 
-  const loadJobs = async (oldJobs = [], currentPage = 0) => {
+  const loadJobs = async (oldJobs = [], currentPage = 1) => {
     setLoading(true);
+
     try {
       const {data} = await api.get(
         `positions.json?page=${currentPage}${

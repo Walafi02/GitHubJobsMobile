@@ -25,10 +25,13 @@ const TextInput = ({label, value, onChange, ...rest}) => {
 
 TextInput.propTypes = {
   label: PropTypes.string,
+  value: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
 };
 
 TextInput.defaultProps = {
   label: null,
+  value: '',
 };
 
 export default TextInput;
