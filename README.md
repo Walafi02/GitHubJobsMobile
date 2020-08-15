@@ -1,5 +1,5 @@
 <h1 align="center" style="backgroundColor: '#2B7FC3'">
-  <img alt="GitHubJob" title="GitHubJob" src=".github/logo.png" width="200px" />
+  <img alt="GitHubJob" title="GitHubJob" src=".github/logo.png" width="300px" />
 </h1>
 
 <h3 align="center">
@@ -9,7 +9,7 @@
 <p align="center">
   <a href="#-technologies">Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-project">Project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-run-project">Run Project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-run-project">Run Project</a>
 </p>
 
 <p align="center">
