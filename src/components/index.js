@@ -1,6 +1,6 @@
 import DrawerContent from './DrawerContent';
 import FilterModal from './FilterModal';
 import TextInput from './TextInput';
-import Loading from './Loading';
+import Empty from './Empty';
 
-export {DrawerContent, FilterModal, TextInput, Loading};
+export {DrawerContent, FilterModal, TextInput, Empty};

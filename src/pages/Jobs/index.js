@@ -3,10 +3,9 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import PropTypes from 'prop-types';
 
 import api from '~/services/api';
-import {FilterModal} from '~/components';
+import {FilterModal, Empty} from '~/components';
 
 import Job from './Job';
-
 import {JobsList} from './styles';
 
 const Jobs = ({navigation}) => {
@@ -93,6 +92,9 @@ const Jobs = ({navigation}) => {
         refreshing={loading}
         onEndReachedThreshold={0.2}
         onEndReached={handleLoadMore}
+        ListEmptyComponent={() => (
+          <Empty icon="visibility-off" message="Nothing found" />
+        )}
         renderItem={({item}) => (
           <Job
             onShowDescription={() => handleShowDescription(item)}
